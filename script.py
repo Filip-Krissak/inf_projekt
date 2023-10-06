@@ -1,23 +1,24 @@
 import json
 
 filename = "data.json"
-# datum = input("Enter the date (e.g., '2023-10-05'): ")
-# flasa_plechovka = input("Is it a bottle (True) or can (False): ").lower() == 'true'
-# uzivatel = input("Enter the user's name: ")
-# kusy = int(input("Enter the quantity: "))
-datum = "2023-10-05"
-flasa_plechovka = True
-uzivatel = "Petr"
-kusy = 5
+# date = input("Enter the date (e.g., '2023-10-05'): ")
+# bottle_can = input("Is it a bottle (True) or can (False): ").lower() == 'true'
+# user = input("Enter the user's name: ")
+# amount = int(input("Enter the quantity: "))
+date = "2023-10-05"
+bottle_can = True
+user = "Petr"
+amount = 5
 
 data = {
-    "datum": datum,
-    "flasa_plechovka": flasa_plechovka,
-    "uzivatel": uzivatel,
-    "kusy": kusy
+    "date": date,
+    "bottle_can": bottle_can,
+    "user": user,
+    "amount": amount
 }
 
-with open(filename, "w") as json_file:
-    json.dump(data, json_file,indent=4)
+with open(filename, "a") as json_file:
+    json.dump(data, json_file)
+    json_file.write("\n")
 
 print("Data has been saved to data.json")
