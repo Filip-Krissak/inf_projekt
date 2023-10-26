@@ -20,5 +20,4 @@ data = {
 with open(filename, "a") as json_file:
     json.dump(data, json_file)
     json_file.write("\n")
-
 print("Data has been saved to data.json")
