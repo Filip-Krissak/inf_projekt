@@ -3,6 +3,9 @@ from tkinter import messagebox
 import bcrypt
 import json
 
+date = "2023-07-04"
+bottle_can = True
+amount = 7
 file_name = "data.json"
 
 # Read data from the JSON file or initialize it as an empty dictionary
@@ -107,9 +110,6 @@ def login_screen():
             create_final_screen(username)  # Pass the username to the final screen
 
             # Store the action under the corresponding username
-            date = "2023-07-04"
-            bottle_can = True
-            amount = 7
             store_user_action(username, date, bottle_can, amount)
         else:
             messagebox.showerror(title="Error", message="Invalid login credentials.")
