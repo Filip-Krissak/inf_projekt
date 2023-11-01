@@ -8,14 +8,12 @@ bottle_can = True
 amount = 7
 file_name = "data.json"
 
-# Read data from the JSON file or initialize it as an empty dictionary
 try:
     with open(file_name, "r") as json_file:
         data = json.load(json_file)
 except FileNotFoundError:
     data = {"data": []}
 
-# Function to check if a user is registered
 def check_user_registration(username, password):
     with open("user_database.txt", "r") as file:
         for line in file:
@@ -24,14 +22,12 @@ def check_user_registration(username, password):
                 return True
     return False
 
-# Function to register a new user
 def register_user(username, password):
     salt = bcrypt.gensalt()
     password_hash = bcrypt.hashpw(password.encode('utf-8'), salt)
     with open("user_database.txt", "a") as file:
         file.write(f"{username},{password_hash.decode('utf-8')}\n")
 
-# Function to create the initial screen
 def create_initial_screen():
     window = tkinter.Tk()
     window.title("PET Flaše")
@@ -61,7 +57,6 @@ def create_initial_screen():
     canvas.bind('<Button-1>', click_handler)
     tkinter.mainloop()
 
-# Function to create the final screen
 def create_final_screen(username):
     window = tkinter.Tk()
     window.title("PET Flaše")
@@ -77,7 +72,6 @@ def create_final_screen(username):
     canvas.create_text(100, 25, text='domov', font=("Times New Roman", 15), tags='d')
     canvas.create_text(300, 25, text='graf', font=("Times New Roman", 15), tags='d')
 
-    # Display the username on the final screen
     canvas.create_text(200, 125, text=f'Logged in as: {username}', font=("Times New Roman", 15), tags='d')
 
     canvas.create_text(200, 300, text='BALANCE:', font=("Times New Roman", 30), tags='d')
@@ -94,7 +88,6 @@ def create_final_screen(username):
     canvas.bind('<Button-1>', click_handler)
     tkinter.mainloop()
 
-# Function to create the login screen
 def login_screen():
     window = tkinter.Tk()
     window.title("PET Flaše")
@@ -107,9 +100,8 @@ def login_screen():
 
         if check_user_registration(username, password):
             window.destroy()
-            create_final_screen(username)  # Pass the username to the final screen
+            create_final_screen(username)
 
-            # Store the action under the corresponding username
             store_user_action(username, date, bottle_can, amount)
         else:
             messagebox.showerror(title="Error", message="Invalid login credentials.")
@@ -131,7 +123,6 @@ def login_screen():
     frame.pack()
     window.mainloop()
 
-# Function to create the sign-up screen
 def signup_screen():
     window = tkinter.Tk()
     window.title("PET Flaše")
@@ -156,9 +147,8 @@ def signup_screen():
                 register_user(username, password)
                 messagebox.showinfo(title="Successful Registration", message="Registration successful. Welcome.")
                 window.destroy()
-                create_final_screen(username)  # Pass the username to the final screen
+                create_final_screen(username)
 
-                # Store the action under the corresponding username
                 date = "2023-07-04"
                 bottle_can = True
                 amount = 7
@@ -185,7 +175,6 @@ def signup_screen():
     frame.pack()
     window.mainloop()
 
-# Function to store the user's action in the JSON file
 def store_user_action(username, date, bottle_can, amount):
     new_data = {
         "user": username,
@@ -195,10 +184,8 @@ def store_user_action(username, date, bottle_can, amount):
     }
     data["data"].append(new_data)
 
-    # Save the updated data back to the JSON file
     with open(file_name, "w") as json_file:
         json.dump(data, json_file)
 
-# Main program
 username = None
 create_initial_screen()
